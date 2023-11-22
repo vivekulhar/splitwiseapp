@@ -21,7 +21,7 @@ public class UserController {
         CreateUserResponseDTO responseDTO = new CreateUserResponseDTO();
 
         try {
-            User savedUser = userService.createUser(requestDTO.getName(), requestDTO.getUname(), requestDTO.getPwd());
+            User savedUser = userService.createUser(requestDTO.getPhoneNumber(), requestDTO.getUname(), requestDTO.getPwd());
             responseDTO.setMessage("User created successfully");
             responseDTO.setResponseStatus(ResponseStatus.SUCCESS);
             responseDTO.setUserId(savedUser.getId());
@@ -42,7 +42,7 @@ public class UserController {
             responseDTO.setMessage("User found successfully");
             responseDTO.setResponseStatus(ResponseStatus.SUCCESS);
 
-            responseDTO.setName(user.getName());
+            responseDTO.setPhoneNumber(user.getPhone());
             responseDTO.setUname(user.getUname());
         } catch(Exception ex) {
             responseDTO.setMessage(ex.getMessage());

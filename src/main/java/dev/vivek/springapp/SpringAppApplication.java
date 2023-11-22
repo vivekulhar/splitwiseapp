@@ -10,6 +10,9 @@ import java.util.Scanner;
 @SpringBootApplication
 public class SpringAppApplication implements CommandLineRunner {
 	private CommandRegistry commandRegistry;
+	public SpringAppApplication(CommandRegistry commandRegistry){
+		this.commandRegistry = commandRegistry;
+	}
 	public static void main(String[] args) {
 
 		SpringApplication.run(SpringAppApplication.class, args);
@@ -22,6 +25,7 @@ public class SpringAppApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception{
 		Scanner scn = new Scanner(System.in);
 		while(true) {
+			System.out.println("Enter command:");
 			String input = scn.nextLine();
 			if(input.equals("quit")){
 				break;

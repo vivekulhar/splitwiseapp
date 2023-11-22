@@ -34,7 +34,7 @@ public class SettleGroupCommand implements Command{
     public void execute(String input){
         String[] parts = input.split(" ");
         SettleGroupRequestDTO requestDTO = new SettleGroupRequestDTO();
-        requestDTO.setGroupName(parts[1]);
+        requestDTO.setGroupId(Long.parseLong(parts[1]));
 
         SettleGroupResponseDTO responseDTO = groupController.settleGroup(requestDTO);
         if(responseDTO.getResponseStatus().equals(ResponseStatus.SUCCESS)){

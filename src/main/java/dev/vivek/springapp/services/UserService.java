@@ -1,6 +1,8 @@
 package dev.vivek.springapp.services;
 
+import dev.vivek.springapp.exception.UserAlreadyExistsException;
 import dev.vivek.springapp.models.User;
+import dev.vivek.springapp.models.UserStatus;
 import dev.vivek.springapp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,12 +18,24 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User createUser(String name, String uname, String pwd){
+    public User createUser(String phoneNumber, String uname, String pwd) throws UserAlreadyExistsException {
+        Optional<User> userOptional = userRepository.findByPhone(phoneNumber);
+
+        if (userOptional.isPresent()) {
+            if (userOptional.get().getUserStatus().equals(UserStatus.ACTIVE)) {
+                throw new UserAlreadyExistsException("User already exists");
+            } else {
+                User user = userOptional.get();
+                user.setUserStatus(UserStatus.ACTIVE);
+                user.setPassword(pwd);
+                return userRepository.save(user);
+            }
+        }
+
         User user = new User();
-        user.setName(name);
         user.setUname(uname);
         user.setPassword(pwd);
-
+        user.setPhone(phoneNumber);
         User savedUser = userRepository.save(user);
         return savedUser;
     }

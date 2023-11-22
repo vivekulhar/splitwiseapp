@@ -31,7 +31,7 @@ public class CreateUserCommand implements Command{
         String[] parts = input.split(" ");
 
         CreateUserRequestDTO requestDTO = new CreateUserRequestDTO();
-        requestDTO.setName(parts[1]);
+        requestDTO.setPhoneNumber(parts[1]);
         requestDTO.setUname(parts[2]);
         requestDTO.setPwd(parts[3]);
 
