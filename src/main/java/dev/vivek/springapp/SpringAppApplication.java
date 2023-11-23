@@ -8,11 +8,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.util.Scanner;
 
 @SpringBootApplication
-public class SpringAppApplication implements CommandLineRunner {
-	private CommandRegistry commandRegistry;
+public class SpringAppApplication {
+	/*private CommandRegistry commandRegistry;
 	public SpringAppApplication(CommandRegistry commandRegistry){
 		this.commandRegistry = commandRegistry;
-	}
+	}*/
 	public static void main(String[] args) {
 
 		SpringApplication.run(SpringAppApplication.class, args);
@@ -21,7 +21,7 @@ public class SpringAppApplication implements CommandLineRunner {
 	// get-user <user-id>
 	// settle-group <group-name>
 
-	@Override
+	/*@Override
 	public void run(String... args) throws Exception{
 		Scanner scn = new Scanner(System.in);
 		while(true) {
@@ -33,5 +33,5 @@ public class SpringAppApplication implements CommandLineRunner {
 				commandRegistry.process(input);
 			}
 		}
-	}
+	}*/
 }

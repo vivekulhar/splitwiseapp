@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api")
 public class UserController {
     private UserService userService;
 
@@ -16,7 +17,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/user/create/")
+    @PostMapping("/create/")
     public CreateUserResponseDTO createUser(@RequestBody() CreateUserRequestDTO requestDTO){
         CreateUserResponseDTO responseDTO = new CreateUserResponseDTO();
 
@@ -33,7 +34,7 @@ public class UserController {
         return responseDTO;
     }
 
-    @GetMapping("/user/get/")
+    @GetMapping("/get/")
     public GetUserResponseDTO getUser(@RequestParam() Long userId){
         GetUserResponseDTO responseDTO = new GetUserResponseDTO();
 
@@ -50,5 +51,10 @@ public class UserController {
         }
 
         return responseDTO;
+    }
+
+    @GetMapping("/user/hello")
+    public String hello(){
+        return "Hello World";
     }
 }
