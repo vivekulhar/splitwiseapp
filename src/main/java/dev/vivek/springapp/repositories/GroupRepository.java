@@ -7,4 +7,8 @@ import java.util.Optional;
 
 public interface GroupRepository extends JpaRepository<Group, Long> {
     Optional<Group> findById(Long aLong);
+    @Override
+    Group save(Group group);
+
+    Optional<Group> findByName(String groupName);
 }

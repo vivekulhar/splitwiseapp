@@ -1,11 +1,12 @@
 package dev.vivek.springapp.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -14,6 +15,7 @@ public class Expense extends BaseModel{
     private String name;
     private String description;
     private int amount;
+    private Date createdAt;
     @Enumerated(EnumType.ORDINAL)
     private ExpenseType expenseType;
 
@@ -21,5 +23,7 @@ public class Expense extends BaseModel{
     private User createdBy;
 
     @ManyToOne
-    private Group groups;
+    private Group group;
+
+
 }

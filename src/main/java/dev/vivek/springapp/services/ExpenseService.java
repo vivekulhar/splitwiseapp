@@ -73,7 +73,7 @@ public class ExpenseService {
             return null;
         }
 
-        List<Expense> expenses = expenseRepository.findAllByGroups(groupOptional.get());
+        List<Expense> expenses = expenseRepository.findAllByGroup(groupOptional.get());
 
         List<Transaction> transactions = settleUpStrategy.settle(
                 expenses

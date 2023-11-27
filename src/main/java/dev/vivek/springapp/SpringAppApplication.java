@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.Scanner;
 
+/*@SpringBootApplication
+public class SpringAppApplication implements CommandLineRunner {*/
 @SpringBootApplication
 public class SpringAppApplication {
 	/*private CommandRegistry commandRegistry;

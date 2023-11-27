@@ -5,10 +5,14 @@ import dev.vivek.springapp.dtos.ResponseStatus;
 import dev.vivek.springapp.models.User;
 import dev.vivek.springapp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/user")
 public class UserController {
     private UserService userService;
 
@@ -34,7 +38,7 @@ public class UserController {
         return responseDTO;
     }
 
-    @GetMapping("/get/")
+    @GetMapping("/getById/")
     public GetUserResponseDTO getUser(@RequestParam() Long userId){
         GetUserResponseDTO responseDTO = new GetUserResponseDTO();
 
@@ -53,8 +57,11 @@ public class UserController {
         return responseDTO;
     }
 
-    @GetMapping("/user/hello")
-    public String hello(){
-        return "Hello World";
+    @GetMapping("/getAll")
+    public ResponseEntity hello(){
+
+        List<User> users= userService.getAllUsers();
+
+        return new ResponseEntity(users, HttpStatus.OK);
     }
 }

@@ -8,7 +8,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
-@Component("twoSetsSettleUpStrategy")
+@Component(
+        "twoSetsSettleUpStrategy")
 public class TwoSetsSettleUpStrategy implements SettleUpStrategy{
     private UserExpenseRepository userExpenseRepository;
     @Autowired
