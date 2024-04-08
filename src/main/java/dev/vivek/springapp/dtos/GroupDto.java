@@ -1,15 +1,15 @@
 package dev.vivek.springapp.dtos;
 
-import dev.vivek.springapp.models.User;
-import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
-
+import java.util.List;
 @Getter
 @Setter
-public class CreateGroupRequestDTO {
+public class GroupDto {
     private String name;
     private String description;
+
+    private UserDto createdBy;
+    private List<UserDto> users;
 }

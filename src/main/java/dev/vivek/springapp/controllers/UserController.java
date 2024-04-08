@@ -1,8 +1,7 @@
 package dev.vivek.springapp.controllers;
 
 import dev.vivek.springapp.dtos.*;
-import dev.vivek.springapp.dtos.ResponseStatus;
-import dev.vivek.springapp.models.User;
+import dev.vivek.springapp.exception.UserNotFoundException;
 import dev.vivek.springapp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,46 +21,47 @@ public class UserController {
     }
 
     @PostMapping("/create/")
-    public CreateUserResponseDTO createUser(@RequestBody() CreateUserRequestDTO requestDTO){
-        CreateUserResponseDTO responseDTO = new CreateUserResponseDTO();
+    public ResponseEntity<UserDto> createUser(@RequestBody() CreateUserRequestDTO requestDTO){
 
         try {
-            User savedUser = userService.createUser(requestDTO.getPhoneNumber(), requestDTO.getUname(), requestDTO.getPwd());
-            responseDTO.setMessage("User created successfully");
-            responseDTO.setResponseStatus(ResponseStatus.SUCCESS);
-            responseDTO.setUserId(savedUser.getId());
+            UserDto user = userService.createUser(requestDTO.getPhoneNumber(), requestDTO.getUname(), requestDTO.getPwd());
+
+            return new ResponseEntity<>(user, HttpStatus.OK);
         } catch(Exception ex) {
-            responseDTO.setMessage(ex.getMessage());
-            responseDTO.setResponseStatus(ResponseStatus.FAILURE);
+
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        return responseDTO;
+
     }
 
     @GetMapping("/getById/")
-    public GetUserResponseDTO getUser(@RequestParam() Long userId){
-        GetUserResponseDTO responseDTO = new GetUserResponseDTO();
+    public ResponseEntity<UserDto> getUser(@RequestParam() Long userId){
+
 
         try {
-            User user = userService.getUser(userId);
-            responseDTO.setMessage("User found successfully");
-            responseDTO.setResponseStatus(ResponseStatus.SUCCESS);
+            UserDto userDto = userService.getUser(userId);
 
-            responseDTO.setPhoneNumber(user.getPhone());
-            responseDTO.setUname(user.getUname());
+            return new ResponseEntity<>(userDto, HttpStatus.OK);
         } catch(Exception ex) {
-            responseDTO.setMessage(ex.getMessage());
-            responseDTO.setResponseStatus(ResponseStatus.FAILURE);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        return responseDTO;
+
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity hello(){
+    public ResponseEntity<List<GetUserResponseDTO>> getAllUsers(){
 
-        List<User> users= userService.getAllUsers();
+        List<GetUserResponseDTO> users= userService.getAllUsers();
 
         return new ResponseEntity(users, HttpStatus.OK);
+    }
+
+    @PostMapping("/addUsersToGroup/{groupId}")
+    public ResponseEntity<GroupDto> addUsersToGroup(@RequestBody  AddUsersToGroupDto requestDto, @PathVariable(name = "groupId") Long groupId) throws Exception {
+        GroupDto responseDTO = userService.addUsersToGroup(requestDto,groupId);
+
+        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 }

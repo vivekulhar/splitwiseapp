@@ -25,5 +25,4 @@ public class Expense extends BaseModel{
     @ManyToOne
     private Group group;
 
-
 }

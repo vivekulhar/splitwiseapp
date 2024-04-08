@@ -1,6 +1,7 @@
 package dev.vivek.springapp.controllers;
 
 import dev.vivek.springapp.dtos.*;
+import dev.vivek.springapp.models.ExpenseType;
 import dev.vivek.springapp.models.Transaction;
 import dev.vivek.springapp.services.ExpenseService;
 import org.springframework.stereotype.Controller;
@@ -21,8 +22,6 @@ public class ExpenseController {
     public SettleUpUserResponseDto settleUpUser(@RequestBody SettleUpUserRequestDto request) {
         List<Transaction> transactions = expenseService
                 .settleUpUser(request.getUserId());
-
-
         SettleUpUserResponseDto response = new SettleUpUserResponseDto();
         response.setResponseStatus(ResponseStatus.SUCCESS);
         response.setTransactions(transactions);
@@ -35,14 +34,9 @@ public class ExpenseController {
     }
 
     @PostMapping("/api/addExpense")
-    public AddExpenseResponseDto addExpense(@RequestBody AddExpenseRequestDto request) {
-        Transaction transaction = expenseService.addExpense(request.getGroupId(), request.getPaidBy(), request.getSplitType(), request.getAmount(), request.getSplitDetails());
-
-        AddExpenseResponseDto response = new AddExpenseResponseDto();
-        response.setResponseStatus(ResponseStatus.SUCCESS);
-        response.setTransaction(transaction);
-
-        return response;
+    public ExpenseDto addExpense(@RequestBody AddExpenseRequestDto request) {
+        ExpenseDto expenseDto = expenseService.addExpense(request);
+        return expenseDto;
     }
 
 

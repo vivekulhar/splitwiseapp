@@ -41,8 +41,8 @@ public class TwoSetsSettleUpStrategy implements SettleUpStrategy{
             }
         }
 
-        TreeSet<Pair<User, Integer>> extraPaid = new TreeSet<>();
-        TreeSet<Pair<User, Integer>> lessPaid = new TreeSet<>();
+        TreeSet<Pair<User, Integer>> extraPaid = new TreeSet<>(new PairComparator());
+        TreeSet<Pair<User, Integer>> lessPaid = new TreeSet<>(new PairComparator());
 
         // {Key, Value}
         for (Map.Entry<User, Integer> userAmount: moneyPaidExtra.entrySet()) {
